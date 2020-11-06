@@ -1,13 +1,15 @@
 package com.file_analizer.analizer.analizers;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Txt_analizer implements File_analizer {
+@Component
+public class Txt_analizer implements FileAnalizer {
     @Override
     public String analize(String method_alias, String file_path) {
         String answer = "Такого метода несуществует";

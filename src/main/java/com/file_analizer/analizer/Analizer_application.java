@@ -1,38 +1,44 @@
 package com.file_analizer.analizer;
 
-import com.file_analizer.analizer.analizers.File_analizer;
+import com.file_analizer.analizer.analizers.FileAnalizer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import javax.imageio.IIOException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Map;
 
 @SpringBootApplication
-public class Analizer_application {
+public class Analizer_application implements CommandLineRunner {
 
-	private Map<String, File_analizer> analizers;
+	private Map<String, FileAnalizer> analizers;
 
 	private String path;
 
 	private String file_extention;
 
-	private File_analizer analizer;
+	private FileAnalizer analizer;
+
+	List<String> ExtTyper = List.of("img_analizer","mp3_analizer","txt_analizer","folder_analizer");
+
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
-		Analizer_application analizer = (Analizer_application) ctx.getBean("Analizer_application");
-		System.out.println(analizer.analize());
+		SpringApplication.run(Analizer_application.class);
 	}
 
 	public Analizer_application(){}
 
-	public Analizer_application(Map<String, File_analizer> analizers){
+	@Autowired
+	public Analizer_application(Map<String, FileAnalizer> analizers){
 		this.analizers = analizers;
 	}
 
@@ -56,7 +62,18 @@ public class Analizer_application {
 			else throw new IOException();
 
 			System.out.println("Введите номер метода");
-			analizer = analizers.get(file_extention);
+			if (file_extention.equals("jpg") || file_extention.equals("png")){
+				analizer = analizers.get(ExtTyper.get(0));
+			}
+			else if (file_extention.equals("mp3")){
+				analizer = analizers.get(ExtTyper.get(1));
+			}
+			else if (file_extention.equals("txt")){
+				analizer = analizers.get(ExtTyper.get(2));
+			}
+			else if(file_extention.equals("folder")){
+				analizer = analizers.get(ExtTyper.get(3));
+			}
 			method_alias = reader.readLine();
 		}
 
@@ -67,5 +84,10 @@ public class Analizer_application {
 
 		answer = analizer.analize(method_alias, path);
 		return answer;
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println(analize());
 	}
 }

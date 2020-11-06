@@ -3,8 +3,10 @@ package com.file_analizer.analizer.analizers;
 import com.mpatric.mp3agic.ID3v1;
 import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.Mp3File;
+import org.springframework.stereotype.Component;
 
-public class Mp3_analizer implements File_analizer {
+@Component
+public class Mp3_analizer implements FileAnalizer {
 
     @Override
     public String analize(String method_alias, String file_path) {

@@ -1,11 +1,14 @@
 package com.file_analizer.analizer.analizers;
 
+import org.springframework.stereotype.Component;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Folder_analizer implements File_analizer {
+@Component
+public class Folder_analizer implements FileAnalizer {
 
     @Override
     public String analize(String method_alias, String file_path) {

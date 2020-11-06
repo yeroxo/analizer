@@ -4,16 +4,16 @@ import com.drew.imaging.ImageMetadataReader;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
+import org.springframework.stereotype.Component;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-
+//C:\Users\onohite\Desktop\lmvlYhIJaUw.jpg
 //
-public class Img_analizer implements File_analizer {
+
+@Component
+public class Img_analizer implements FileAnalizer {
 
     @Override
     public String analize(String method_alias, String file_path) {
